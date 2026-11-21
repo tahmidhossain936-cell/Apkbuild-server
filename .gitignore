@@ -1,0 +1,45 @@
+# Node.js dependencies and caches
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+
+# Keystores and Android signing material
+*.jks
+*.p12
+*.pfx
+*.keystore
+keystores/
+signing/
+
+# Build artifacts, uploads, and temporary directories
+tmp/
+temp/
+builds/
+uploads/
+output/
+dist/
+*.apk
+*.aab
+*.zip
+
+# Gradle / Android local files
+.gradle/
+local.properties
+*.iml
+.idea/
+
+# OS & editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
