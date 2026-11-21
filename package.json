@@ -1,0 +1,17 @@
+{
+  "name": "minimal-apk-build-server",
+  "version": "1.0.0",
+  "description": "Minimal-file HTML/CSS/JS to signed Android APK build server with AES-256-GCM asset encryption and mandatory AI API key detection",
+  "main": "server.js",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "adm-zip": "^0.6.1",
+    "express": "^4.22.1",
+    "multer": "^2.5.0"
+  }
+}
