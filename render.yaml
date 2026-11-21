@@ -1,0 +1,48 @@
+services:
+  - type: web
+    name: minimal-apk-build-server
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: standard # 2 GB RAM recommended for Gradle / R8 / dexing
+    region: oregon
+    autoDeployTrigger: commit
+    healthCheckPath: /health
+    maxShutdownDelaySeconds: 120
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      # Mandatory AES-256-GCM Asset Encryption Key (set in Render Dashboard, NEVER commit)
+      - key: ASSET_ENCRYPTION_KEY
+        sync: false
+
+      # Mandatory AI API Key Detection configuration
+      - key: AI_PROVIDER
+        value: openai # Supported by your server.js: e.g. openai | anthropic | gemini
+      - key: AI_MODEL
+        value: gpt-4o-mini
+      - key: AI_API_KEY
+        sync: false
+
+      # Build & Storage Limits
+      - key: MAX_APK_SIZE_BYTES
+        value: "20971520" # 20 MB hard cap
+      - key: BUILD_TIMEOUT_MS
+        value: "300000" # 5 minutes
+      - key: APK_TTL_MS
+        value: "1800000" # 30 minutes
+      - key: KEYSTORE_TTL_MS
+        value: "3600000" # 60 minutes
+      - key: TMP_BASE_DIR
+        value: /tmp/apk-builder
+
+      # Optional preconfigured fallback/default signing keystore (via Render Secret Files + env)
+      - key: SIGNING_KEYSTORE_PATH
+        sync: false # e.g. /etc/secrets/release-keystore.p12
+      - key: SIGNING_KEYSTORE_PASSWORD
+        sync: false
+      - key: SIGNING_KEY_ALIAS
+        sync: false
+      - key: SIGNING_KEY_PASSWORD
+        sync: false
